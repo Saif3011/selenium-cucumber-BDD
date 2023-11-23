@@ -15,9 +15,16 @@ pipeline {
                 // Run Maven on a Unix agent.
                // sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
-                // To run Maven on a Windows agent, use
+               // To run Maven on a Windows agent, use
                  bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
+         stage('Test E2E') {            
+             steps {                                
+               // Run Tests
+                 bat 'mvn test'            
+                       }         
+                     }         
+            
         }
           stage('Rapport de test') {
               steps {
