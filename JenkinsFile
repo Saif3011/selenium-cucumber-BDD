@@ -29,10 +29,18 @@ pipeline {
           stage('Rapport de test') {
               steps {
                   cucumber buildStatus: "UNSTABLE",
-                      fileIncludePattern: "**/cucumber.json",
+                  fileIncludePattern: "**/cucumber.json",
                   jsonReportDirectory:'target'
               }
         }
-
+        stage('Send mail'){             
+               steps{                 
+         emailext attachLog: true,
+                  attachmentsPattern: '**/cucumber-report.html', 
+                  body: '${env.JOB_NAME} - Build # ${env.BUILD_NUMBER}',
+                  subject: '${env.JOB_NAME} - Build # ${env.BUILD_NUMBER}',
+                  to: 'dako23775@gmail.com'             
+}         
+}             
     }
 }
